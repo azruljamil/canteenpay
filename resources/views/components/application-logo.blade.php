@@ -1,0 +1,1 @@
+<img src = "{{ asset('img/MDT-logo.png') }}" width="150" class="img-fluid"/>
