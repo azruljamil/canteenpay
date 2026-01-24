@@ -29,6 +29,84 @@
         padding: 8px 16px;
     }
 
+    .card-title {
+        font-size: 0.55rem !important;
+        font-weight: bold !important;
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+
+    .card-text {
+        font-size: 1.0rem !important;
+    }
+
+    @media (min-width: 576px) {
+        .card-title {
+            font-size: 1.0rem !important;
+        }
+
+        .card-text {
+            font-size: 1.0rem !important;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .card-title {
+            font-size: 1.0rem !important;
+        }
+
+        .card-text {
+            font-size: 1.0rem !important;
+        }
+    }
+
+    /* QR Scanner improvements for mobile */
+    @media (max-width: 576px) {
+        .qr-reader-container {
+            min-height: 250px !important;
+        }
+
+        .scanning-hints ul {
+            font-size: 0.75rem;
+        }
+    }
+
+    .qr-reader-container {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .qr-reader-container canvas {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .card-img-top {
+        height: 120px !important;
+        object-fit: cover !important;
+    }
+
+    @media (min-width: 576px) {
+        .card-img-top {
+            height: 150px !important;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .card-img-top {
+            height: 180px !important;
+        }
+    }
+
+    .food-img {
+        width: 100%;
+        max-width: 220px;      /* control max size */
+        aspect-ratio: 1 / 1;  /* square */
+        object-fit: contain;  /* no crop, no stretch */
+        display: block;
+        margin: auto;
+    }
+
 </style>
 
 <div class="background-image"></div>
@@ -51,95 +129,107 @@
             <!-- Menu Items -->
             
             <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100">
-                        <img src="{{ asset('img/nasi_lemak.png') }}" class="card-img-top" alt="Nasi Lemak">
-                        <div class="card-body text-center d-flex flex-column">
+                <div class="col-4 mb-3">
+                    <div class="card h-50 border-0">
+                        <img src="{{ asset('img/nasi_lemak.png') }}" class="card-img-top food-img" alt="Nasi Lemak">
+                        <div class="card-body text-center">
                             <h5 class="card-title">Nasi Lemak</h5>
                             <p class="card-text">RM 5.00</p>
-                            <div class="d-flex justify-content-center align-items-center mb-2 mt-auto">
+                            <input type="hidden" name="nasi_lemak" id="input_nasi_lemak" value="0">
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="d-flex justify-content-center align-items-center">
                                 <button type="button" class="btn btn-sm btn-outline-secondary me-1" onclick="changeQty('nasi_lemak', -1)">-</button>
                                 <span id="qty_nasi_lemak" class="mx-1">0</span>
                                 <button type="button" class="btn btn-sm btn-outline-secondary ms-1" onclick="changeQty('nasi_lemak', 1)">+</button>
                             </div>
-                            <input type="hidden" name="nasi_lemak" id="input_nasi_lemak" value="0">
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100">
-                        <img src="{{ asset('img/burger.png') }}" class="card-img-top" alt="Burger">
-                        <div class="card-body text-center d-flex flex-column">
+                <div class="col-4 mb-3">
+                    <div class="card h-50 border-0">
+                        <img src="{{ asset('img/burger.png') }}" class="card-img-top food-img" alt="Burger" width="150" height="150">
+                        <div class="card-body text-center">
                             <h5 class="card-title">Burger</h5>
                             <p class="card-text">RM 8.00</p>
-                            <div class="d-flex justify-content-center align-items-center mb-2 mt-auto">
+                            <input type="hidden" name="burger" id="input_burger" value="0">
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="d-flex justify-content-center align-items-center">
                                 <button type="button" class="btn btn-sm btn-outline-secondary me-1" onclick="changeQty('burger', -1)">-</button>
                                 <span id="qty_burger" class="mx-1">0</span>
                                 <button type="button" class="btn btn-sm btn-outline-secondary ms-1" onclick="changeQty('burger', 1)">+</button>
                             </div>
-                            <input type="hidden" name="burger" id="input_burger" value="0">
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100">
-                        <img src="{{ asset('img/pizza.png') }}" class="card-img-top" alt="Pizza">
-                        <div class="card-body text-center d-flex flex-column">
+                <div class="col-4 mb-3">
+                    <div class="card h-50 border-0">
+                        <img src="{{ asset('img/pizza.png') }}" class="card-img-top food-img" alt="Pizza" width="150" height="150">
+                        <div class="card-body text-center">
                             <h5 class="card-title">Pizza</h5>
                             <p class="card-text">RM 12.00</p>
-                            <div class="d-flex justify-content-center align-items-center mb-2 mt-auto">
+                            <input type="hidden" name="pizza" id="input_pizza" value="0">
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="d-flex justify-content-center align-items-center">
                                 <button type="button" class="btn btn-sm btn-outline-secondary me-1" onclick="changeQty('pizza', -1)">-</button>
                                 <span id="qty_pizza" class="mx-1">0</span>
                                 <button type="button" class="btn btn-sm btn-outline-secondary ms-1" onclick="changeQty('pizza', 1)">+</button>
                             </div>
-                            <input type="hidden" name="pizza" id="input_pizza" value="0">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100">
-                        <img src="{{ asset('img/fried_chicken.png') }}" class="card-img-top" alt="Fried Chicken">
-                        <div class="card-body text-center d-flex flex-column">
-                            <h5 class="card-title">Fried Chicken</h5>
-                            <p class="card-text">RM 6.00</p>
-                            <div class="d-flex justify-content-center align-items-center mb-2 mt-auto">
+                <div class="col-4 mb-3">
+                    <div class="card h-50 border-0">
+                        <img src="{{ asset('img/fried_chicken.png') }}" class="card-img-top food-img" alt="Fried Chicken" width="150" height="150">
+                        <div class="card-body text-center">
+                            <h5 class="card-title" style="font-size: 1.2rem; font-weight: bold;">Fried Chicken</h5>
+                            <p class="card-text" style="font-size: 1.1rem;">RM 6.00</p>
+                            <input type="hidden" name="fried_chicken" id="input_fried_chicken" value="0">
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="d-flex justify-content-center align-items-center">
                                 <button type="button" class="btn btn-sm btn-outline-secondary me-1" onclick="changeQty('fried_chicken', -1)">-</button>
                                 <span id="qty_fried_chicken" class="mx-1">0</span>
                                 <button type="button" class="btn btn-sm btn-outline-secondary ms-1" onclick="changeQty('fried_chicken', 1)">+</button>
                             </div>
-                            <input type="hidden" name="fried_chicken" id="input_fried_chicken" value="0">
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100">
-                        <img src="{{ asset('img/chicken_chop.png') }}" class="card-img-top" alt="Chicken Chop">
-                        <div class="card-body text-center d-flex flex-column">
+                <div class="col-4 mb-3">
+                    <div class="card h-50 border-0">
+                        <img src="{{ asset('img/chicken_chop.png') }}" class="card-img-top food-img" alt="Chicken Chop" width="150" height="150">
+                        <div class="card-body text-center">
                             <h5 class="card-title">Chicken Chop</h5>
                             <p class="card-text">RM 10.00</p>
-                            <div class="d-flex justify-content-center align-items-center mb-2 mt-auto">
+                            <input type="hidden" name="chicken_chop" id="input_chicken_chop" value="0">
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="d-flex justify-content-center align-items-center">
                                 <button type="button" class="btn btn-sm btn-outline-secondary me-1" onclick="changeQty('chicken_chop', -1)">-</button>
                                 <span id="qty_chicken_chop" class="mx-1">0</span>
                                 <button type="button" class="btn btn-sm btn-outline-secondary ms-1" onclick="changeQty('chicken_chop', 1)">+</button>
                             </div>
-                            <input type="hidden" name="chicken_chop" id="input_chicken_chop" value="0">
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100">
-                        <img src="{{ asset('img/chicken_fries.png') }}" class="card-img-top" alt="Chicken Fries">
-                        <div class="card-body text-center d-flex flex-column">
+                <div class="col-4 mb-3">
+                    <div class="card h-50 border-0">
+                        <img src="{{ asset('img/chicken_fries.png') }}" class="card-img-top food-img" alt="Chicken Fries" width="150" height="150">
+                        <div class="card-body text-center">
                             <h5 class="card-title">Chicken Fries</h5>
                             <p class="card-text">RM 8.00</p>
-                            <div class="d-flex justify-content-center align-items-center mb-2 mt-auto">
+                            <input type="hidden" name="chicken_fries" id="input_chicken_fries" value="0">
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="d-flex justify-content-center align-items-center">
                                 <button type="button" class="btn btn-sm btn-outline-secondary me-1" onclick="changeQty('chicken_fries', -1)">-</button>
                                 <span id="qty_chicken_fries" class="mx-1">0</span>
                                 <button type="button" class="btn btn-sm btn-outline-secondary ms-1" onclick="changeQty('chicken_fries', 1)">+</button>
                             </div>
-                            <input type="hidden" name="chicken_fries" id="input_chicken_fries" value="0">
                         </div>
                     </div>
                 </div>
@@ -150,48 +240,54 @@
             </div>
 
             <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100">
-                        <img src="{{ asset('img/orange_drink.png') }}" class="card-img-top" alt="Orange Drink">
-                        <div class="card-body text-center d-flex flex-column">
-                            <h5 class="card-title">Orange Drink</h5>
+                <div class="col-4 mb-3">
+                    <div class="card h-50 border-0">
+                        <img src="{{ asset('img/orange_drink.png') }}" class="card-img-top food-img" alt="Orange Drink" width="150" height="150">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Orange</h5>
                             <p class="card-text">RM 3.00</p>
-                            <div class="d-flex justify-content-center align-items-center mb-2 mt-auto">
+                            <input type="hidden" name="orange_drink" id="input_orange_drink" value="0">
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="d-flex justify-content-center align-items-center">
                                 <button type="button" class="btn btn-sm btn-outline-secondary me-1" onclick="changeQty('orange_drink', -1)">-</button>
                                 <span id="qty_orange_drink" class="mx-1">0</span>
                                 <button type="button" class="btn btn-sm btn-outline-secondary ms-1" onclick="changeQty('orange_drink', 1)">+</button>
                             </div>
-                            <input type="hidden" name="orange_drink" id="input_orange_drink" value="0">
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100">
-                        <img src="{{ asset('img/lime_drink.png') }}" class="card-img-top" alt="Lime Drink">
-                        <div class="card-body text-center d-flex flex-column">
-                            <h5 class="card-title">Lime Drink</h5>
+                <div class="col-4 mb-3">
+                    <div class="card h-50 border-0">
+                        <img src="{{ asset('img/lime_drink.png') }}" class="card-img-top food-img" alt="Lime Drink" width="150" height="150">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Lime</h5>
                             <p class="card-text">RM 3.00</p>
-                            <div class="d-flex justify-content-center align-items-center mb-2 mt-auto">
+                            <input type="hidden" name="lime_drink" id="input_lime_drink" value="0">
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="d-flex justify-content-center align-items-center">
                                 <button type="button" class="btn btn-sm btn-outline-secondary me-1" onclick="changeQty('lime_drink', -1)">-</button>
                                 <span id="qty_lime_drink" class="mx-1">0</span>
                                 <button type="button" class="btn btn-sm btn-outline-secondary ms-1" onclick="changeQty('lime_drink', 1)">+</button>
                             </div>
-                            <input type="hidden" name="lime_drink" id="input_lime_drink" value="0">
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100">
-                        <img src="{{ asset('img/soft_drink.png') }}" class="card-img-top" alt="Soft Drink">
-                        <div class="card-body text-center d-flex flex-column">
-                            <h5 class="card-title">Soft Drink</h5>
+                <div class="col-4 mb-3">
+                    <div class="card h-50 border-0">
+                        <img src="{{ asset('img/soft_drink.png') }}" class="card-img-top food-img" alt="Soft Drink" width="150" height="150">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Carbonate</h5>
                             <p class="card-text">RM 4.00</p>
-                            <div class="d-flex justify-content-center align-items-center mb-2 mt-auto">
+                            <input type="hidden" name="soft_drink" id="input_soft_drink" value="0">
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="d-flex justify-content-center align-items-center">
                                 <button type="button" class="btn btn-sm btn-outline-secondary me-1" onclick="changeQty('soft_drink', -1)">-</button>
                                 <span id="qty_soft_drink" class="mx-1">0</span>
                                 <button type="button" class="btn btn-sm btn-outline-secondary ms-1" onclick="changeQty('soft_drink', 1)">+</button>
                             </div>
-                            <input type="hidden" name="soft_drink" id="input_soft_drink" value="0">
                         </div>
                     </div>
                 </div>
@@ -275,17 +371,34 @@
                                                     <i class="fas fa-qrcode me-2"></i>Scan QR Code
                                                 </h5>
                                                 <p class="text-muted mb-3">Position your QR code within the scanner area below</p>
-                                                <div id="payment-qr-reader" class="border border-primary rounded p-3 bg-white shadow-sm" style="min-height: 300px; display: flex; align-items: center; justify-content: center;">
-                                                    <div class="text-muted">
-                                                        <i class="fas fa-camera fa-2x mb-2"></i>
-                                                        <br>Camera initializing...
+                                                <div id="payment-qr-reader" class="qr-reader-container border border-primary rounded p-3 bg-white shadow-sm min-h-[300px] flex items-center justify-center" role="region" aria-label="QR Code Scanner" aria-live="polite">
+                                                    <div class="qr-reader-placeholder text-muted flex flex-col items-center justify-center text-center">
+                                                        <i class="fas fa-camera fa-2x mb-2" aria-hidden="true"></i>
+                                                        <span class="loading-text">Camera initializing...</span>
                                                     </div>
                                                 </div>
                                                 <div class="mt-3">
-                                                    <small class="text-muted">
-                                                        <i class="fas fa-info-circle me-1"></i>
-                                                        Ensure good lighting for better scanning
-                                                    </small>
+                                                    <div class="scanning-hints text-muted small">
+                                                        <div class="mb-2">
+                                                            <i class="fas fa-lightbulb me-1"></i>
+                                                            <strong>Tips for better scanning:</strong>
+                                                        </div>
+                                                        <ul class="list-unstyled mb-0 small">
+                                                            <li>• Ensure good lighting</li>
+                                                            <li>• Hold camera steady</li>
+                                                            <li>• Keep QR code within the scanning area</li>
+                                                            <li>• Try different distances if scanning fails</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div id="camera-switch-hint" class="mt-2" style="display: none;">
+                                                        <button class="btn btn-sm btn-outline-info" onclick="switchCamera()">
+                                                            <i class="fas fa-exchange-alt me-1"></i>
+                                                            Switch Camera
+                                                        </button>
+                                                        <small class="text-muted d-block mt-1">
+                                                            If scanning doesn't work, try switching cameras
+                                                        </small>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -293,7 +406,7 @@
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-md-12 text-center">
-                                        <button type="button" class="btn btn-outline-primary btn-lg px-4" onclick="backToMenu()">
+                                        <button type="button" class="btn btn-outline-primary btn-lg px-4" onclick="window.location.href='/'">
                                             <i class="fas fa-arrow-left me-2"></i>Back to Menu
                                         </button>
                                     </div>
@@ -360,8 +473,10 @@ function backToMenu() {
     if (html5QrcodeScanner) {
         html5QrcodeScanner.clear().then(() => {
             console.log("QR Scanner stopped");
+            html5QrcodeScanner = null; // Clear the reference
         }).catch((err) => {
             console.log("Failed to stop QR Scanner", err);
+            html5QrcodeScanner = null; // Clear the reference even on error
         });
     }
     // Hide payment section
@@ -379,9 +494,9 @@ function populateItemListing() {
     const inputs = document.querySelectorAll('#order input[type="hidden"]');
     inputs.forEach(input => {
         const qty = parseInt(input.value) || 0;
-        if (qty > 0) {
-            const item = input.id.replace('input_', '');
-            const price = prices[item];
+        const item = input.id.replace('input_', '');
+        const price = prices[item];
+        if (price !== undefined && qty > 0) {
             const itemTotal = qty * price;
             total += itemTotal;
             const li = document.createElement('li');
@@ -398,27 +513,274 @@ function populateItemListing() {
     document.getElementById('payment-total').textContent = total.toFixed(2);
 }
 
-function startQrScanner() {
+let currentCameraConfig = 0;
+const cameraConfigs = [
+    {
+        name: "Rear Camera",
+        constraints: {
+            facingMode: "environment",
+            width: { ideal: 640 },
+            height: { ideal: 480 }
+        }
+    },
+    {
+        name: "Front Camera",
+        constraints: {
+            facingMode: "user",
+            width: { ideal: 640 },
+            height: { ideal: 480 }
+        }
+    },
+    {
+        name: "Any Camera (Fallback)",
+        constraints: {
+            width: { ideal: 640 },
+            height: { ideal: 480 }
+        }
+    }
+];
+
+function startQrScanner(cameraConfigIndex = 0) {
     const qrReader = document.getElementById('payment-qr-reader');
-    qrReader.innerHTML = ''; // Clear any previous content
+
+    // Check if running on HTTPS or localhost
+    if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+        qrReader.innerHTML = `
+            <div class="text-center text-warning">
+                <i class="fas fa-exclamation-triangle fa-3x mb-2"></i>
+                <h5>Camera Access Requires HTTPS</h5>
+                <p>Camera access is only available on secure connections (HTTPS) or localhost.</p>
+                <p>Please use a secure connection to scan QR codes.</p>
+            </div>
+        `;
+        return;
+    }
+
+    // Check if camera is supported
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        qrReader.innerHTML = `
+            <div class="text-center text-danger">
+                <i class="fas fa-times-circle fa-3x mb-2"></i>
+                <h5>Camera Not Supported</h5>
+                <p>Your device or browser does not support camera access.</p>
+                <p>Please use a modern browser with camera support.</p>
+            </div>
+        `;
+        return;
+    }
+
+    const config = cameraConfigs[cameraConfigIndex];
+    currentCameraConfig = cameraConfigIndex;
+
+    qrReader.innerHTML = `
+        <div class="qr-reader-placeholder text-muted flex flex-col items-center justify-center text-center">
+            <i class="fas fa-camera fa-2x mb-2" aria-hidden="true"></i>
+            <span class="loading-text">Initializing ${config.name}...</span>
+        </div>
+    `; // Reset to initial content
+
+    const scannerConfig = {
+        fps: 10, // Stable FPS
+        qrbox: 250, // Fixed size for reliability
+        videoConstraints: config.constraints
+    };
+
+    // Clear any existing scanner
+    if (html5QrcodeScanner) {
+        html5QrcodeScanner.clear().catch(() => {});
+    }
 
     html5QrcodeScanner = new Html5QrcodeScanner(
-        "payment-qr-reader", {
-            fps: 10,
-            qrbox: 250
-        });
+        "payment-qr-reader",
+        scannerConfig
+    );
 
-    html5QrcodeScanner.render((decodedText, decodedResult) => {
-        // Handle successful scan
-        console.log("QR Code scanned: ", decodedText);
-        // Here you can add logic to process the payment
-        alert("Payment confirmed! QR Code: " + decodedText);
-        // Optionally, stop the scanner or proceed
-        backToMenu();
-    }, (errorMessage) => {
-        // Handle scan error
-        console.log("QR Scan error: ", errorMessage);
+    let scanStartTime = Date.now();
+    let scanTimeout;
+
+    html5QrcodeScanner.render(
+        (decodedText, decodedResult) => {
+            // Clear any timeout
+            if (scanTimeout) {
+                clearTimeout(scanTimeout);
+            }
+            // Handle successful scan
+            console.log("QR Code scanned successfully: ", decodedText);
+            console.log("Decoded result: ", decodedResult);
+            // Get the total amount
+            const totalAmount = parseFloat(document.getElementById('payment-total').textContent);
+            // Make AJAX request to check balance
+            checkStudentBalance(decodedText, totalAmount);
+        },
+        (errorMessage) => {
+            // Handle scan error
+            console.log("QR Scan error: ", errorMessage);
+            // Only show error messages for actual failures, not normal scanning errors
+            if (errorMessage.includes('NotAllowedError') || errorMessage.includes('Permission denied')) {
+                qrReader.innerHTML = `
+                    <div class="text-center text-warning">
+                        <i class="fas fa-exclamation-triangle fa-3x mb-2"></i>
+                        <h5>Camera Permission Denied</h5>
+                        <p>Please allow camera access to scan QR codes.</p>
+                        <button class="btn btn-primary mt-2" onclick="restartScanner()">Try Again</button>
+                    </div>
+                `;
+            } else if (errorMessage.includes('NotFoundError') || errorMessage.includes('No camera')) {
+                qrReader.innerHTML = `
+                    <div class="text-center text-danger">
+                        <i class="fas fa-times-circle fa-3x mb-2"></i>
+                        <h5>No Camera Found</h5>
+                        <p>No camera device was found on this device.</p>
+                        <p>Please ensure your device has a camera and try again.</p>
+                        <button class="btn btn-primary mt-2" onclick="restartScanner()">Try Again</button>
+                    </div>
+                `;
+            } else if (errorMessage.includes('OverconstrainedError') || errorMessage.includes('Constraints')) {
+                // Try next camera configuration
+                const nextConfig = (currentCameraConfig + 1) % cameraConfigs.length;
+                if (nextConfig !== cameraConfigIndex) {
+                    console.log(`Trying alternative camera config: ${cameraConfigs[nextConfig].name}`);
+                    startQrScanner(nextConfig);
+                    return;
+                }
+                // All configs failed
+                qrReader.innerHTML = `
+                    <div class="text-center text-danger">
+                        <i class="fas fa-times-circle fa-3x mb-2"></i>
+                        <h5>Camera Configuration Failed</h5>
+                        <p>Unable to find a suitable camera configuration.</p>
+                        <p>Try a different device or browser.</p>
+                        <button class="btn btn-primary mt-2" onclick="restartScanner()">Try Again</button>
+                    </div>
+                `;
+            }
+            // For other errors (like scanning errors), don't show UI - just log
+        }
+    );
+
+    // Scanner started successfully - show controls
+    console.log("QR Scanner started successfully with config:", config.name);
+    document.getElementById('camera-switch-hint').style.display = 'block';
+
+    // Set a timeout to show additional hints if scanning takes too long
+    scanTimeout = setTimeout(() => {
+        const hintDiv = document.getElementById('camera-switch-hint');
+        if (hintDiv && hintDiv.style.display !== 'none') {
+            hintDiv.innerHTML = `
+                <button class="btn btn-sm btn-outline-info" onclick="switchCamera()">
+                    <i class="fas fa-exchange-alt me-1"></i>
+                    Switch Camera
+                </button>
+                <small class="text-warning d-block mt-1">
+                    <i class="fas fa-exclamation-triangle me-1"></i>
+                    Taking longer than expected? Try switching cameras or ensure good lighting.
+                </small>
+            `;
+        }
+    }, 10000); // 10 seconds
+}
+
+function checkStudentBalance(studentId, amount) {
+    // Stop the scanner temporarily
+    if (html5QrcodeScanner) {
+        html5QrcodeScanner.clear().then(() => {
+            html5QrcodeScanner = null; // Clear the reference
+        }).catch((err) => {
+            console.log("Failed to clear scanner", err);
+            html5QrcodeScanner = null; // Clear the reference even on error
+        });
+    }
+
+    // Show loading message
+    const qrReader = document.getElementById('payment-qr-reader');
+    qrReader.innerHTML = `
+        <div class="text-center">
+            <i class="fas fa-spinner fa-spin fa-2x mb-2"></i>
+            <p>Processing payment...</p>
+        </div>
+    `;
+
+    // Collect items
+    const items = [];
+    const inputs = document.querySelectorAll('#order input[type="hidden"]');
+    inputs.forEach(input => {
+        const qty = parseInt(input.value) || 0;
+        const item = input.id.replace('input_', '');
+        if (qty > 0) {
+            items.push({
+                item: item,
+                name: itemNames[item],
+                quantity: qty,
+                price: prices[item],
+                subtotal: qty * prices[item]
+            });
+        }
     });
+
+    // Make AJAX request
+    fetch('/check-balance', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+        },
+        body: JSON.stringify({
+            student_id: studentId,
+            amount: amount,
+            items: items
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Payment success
+            qrReader.innerHTML = `
+                <div class="text-center text-success">
+                    <i class="fas fa-check-circle fa-3x mb-2"></i>
+                    <h5>Payment Successful!</h5>
+                    <p>Thank you for your purchase.</p>
+                    <p><strong>Student:</strong> ${data.name}</p>
+                    <p><strong>Wallet Balance:</strong> RM ${parseFloat(data.balance).toFixed(2)}</p>
+                </div>
+            `;
+            // Reload after 8 seconds
+            // setTimeout(() => {
+            //     window.location.reload();
+            // }, 8000);
+        } else {
+            // Payment failed
+            qrReader.innerHTML = `
+                <div class="text-center text-danger">
+                    <i class="fas fa-times-circle fa-3x mb-2"></i>
+                    <h5>Payment Failed</h5>
+                    <p>${data.message || 'Insufficient balance.'}</p>
+                    <p><strong>Student:</strong> ${data.name}</p>
+                    <p><strong>Wallet Balance:</strong> RM ${parseFloat(data.balance).toFixed(2)}</p>
+                    <button class="btn btn-primary mt-2" onclick="restartScanner()">Try Again</button>
+                </div>
+            `;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        qrReader.innerHTML = `
+            <div class="text-center text-danger">
+                <i class="fas fa-exclamation-triangle fa-3x mb-2"></i>
+                <h5>Error</h5>
+                <p>An error occurred. Please try again.</p>
+                <button class="btn btn-primary mt-2" onclick="restartScanner()">Try Again</button>
+            </div>
+        `;
+    });
+}
+
+function restartScanner() {
+    startQrScanner(0); // Start with first config
+}
+
+function switchCamera() {
+    const nextConfig = (currentCameraConfig + 1) % cameraConfigs.length;
+    startQrScanner(nextConfig);
 }
 
 function changeQty(item, delta) {

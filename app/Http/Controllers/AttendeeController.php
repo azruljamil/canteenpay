@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Attendee;
+use App\Models\Purchase;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Mail\SentMail;
 
@@ -56,8 +57,6 @@ class AttendeeController extends Controller
 
         if ($search_attendee->count() == 0) {
             $type = 1;
-            $token = md5($request['name'].$request['email'].$request['phone']);
-            $link = "qrcodes/".$token.".png";
             $name = $request['first_name']. ' ' .$request['last_name'];
             $email = $request['email'];
 
@@ -65,16 +64,22 @@ class AttendeeController extends Controller
             $create_attendee->title = $request['title'];
             $create_attendee->name = $name;
             $create_attendee->email = $email;
-            $create_attendee->phone = "60".$request['phone']; 
-            $create_attendee->company_operate = $request['company_operate']; 
+            $create_attendee->phone = "60".$request['phone'];
+            $create_attendee->company_operate = $request['company_operate'];
             $create_attendee->employee_total = $request['employee_total'];
             $create_attendee->industry = $request['industry'];
             $create_attendee->loan_acquired = $request['loan_acquired'];
-            $create_attendee->token = $token;
-            $create_attendee->redeem = 0; 
+            $create_attendee->redeem = 0;
             $create_attendee->type = 1; // 1 is for attendee
             $create_attendee->attend_event = 1;
             $create_attendee->save();
+
+            // Generate token based on id
+            $token = md5($create_attendee->id . $name . $email);
+            $create_attendee->token = $token;
+            $create_attendee->save();
+
+            $link = "qrcodes/".$token.".png";
 
             $this->generateQrCode($token,$email,$name);
             
@@ -286,6 +291,50 @@ class AttendeeController extends Controller
     public function scanAttendeeQrCode()
     {
         return view('reader');
+    }
+
+    public function checkBalance(Request $request)
+    {
+        $studentId = $request->input('student_id');
+        $amount = $request->input('amount');
+        $items = $request->input('items', []);
+
+        // Find attendee by token (assuming student ID is token)
+        $attendee = Attendee::where('token', $studentId)->first();
+
+        if (!$attendee) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Student not found.'
+            ]);
+        }
+
+        if ($attendee->balance >= $amount) {
+            // Deduct balance
+            $attendee->balance -= $amount;
+            $attendee->save();
+
+            // Record purchase
+            Purchase::create([
+                'attendee_id' => $attendee->id,
+                'items' => $items,
+                'total' => $amount
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Payment successful.',
+                'name' => $attendee->name,
+                'balance' => $attendee->balance
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Insufficient balance.',
+                'name' => $attendee->name,
+                'balance' => $attendee->balance
+            ]);
+        }
     }
 
 }

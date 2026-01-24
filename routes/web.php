@@ -43,6 +43,7 @@ Route::post('/attendeeConfirm', [AttendeeController::class, 'verifyAttendee']);
 // Add this route for redemption kiosk and over the counter
 Route::get('/qrcode', [AttendeeController::class, 'qrcode']);
 Route::get('/redemption', [AttendeeController::class, 'redemption']);
+Route::post('/check-balance', [AttendeeController::class, 'checkBalance']);
 
 //lucky draw
 Route::get('/lucky-draw', [AttendeeController::class, 'luckyDraw']);
