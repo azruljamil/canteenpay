@@ -18,8 +18,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup CICD environment
-        uses: azruljamil/setup-laravel@v1
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
           extensions: mbstring, pdo_sqlite, sqlite3
@@ -35,6 +35,6 @@ jobs:
 
       - name: Run tests
         env:
-          DB_CONNECTION: mysql
+          DB_CONNECTION: sqlite
           DB_DATABASE: ':memory:'
         run: php artisan test
